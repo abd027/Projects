@@ -32,3 +32,67 @@
 - **Upcoming:** Django REST Framework (for API access)
 
 ---
+
+## 📂 Project Structure
+
+```
+
+Studyer/
+├── static/              # CSS, JS, images
+├── templates/           # HTML templates (Jinja-based)
+├── studyer/             # Core Django app with models, views, urls
+├── requirements.txt     # Python dependencies
+├── README.md            # Project documentation
+
+````
+
+---
+
+## 📦 Installation
+
+1. Clone the repository
+
+
+2. Create and activate a virtual environment:
+
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate    # On Windows
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Run migrations and start the server:
+
+   ```bash
+   python manage.py migrate
+   python manage.py runserver
+   ```
+
+---
+
+## 🌐 Planned Enhancements
+
+* ✅ REST API support using Django REST Framework (DRF)
+* ✅ Mobile-friendly user interface
+* ⏳ Enhanced user dashboard with profile editing and activity summaries
+* ⏳ Notifications and tagging features in chat
+
+---
+
+## 👨‍💻 Developed By
+
+**Abdullah**
+[GitHub](https://github.com/abd027) | [LinkedIn](https://www.linkedin.com/in/abdullah-3940471b9)
+
+---
+
+## 📃 License
+
+This project is open-source and free to use for educational purposes.
+
+
