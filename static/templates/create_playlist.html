@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Playlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='pictures/rm3.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .flash-messages {
+            margin: 0 auto 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .flash-danger {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        .flash-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .songs-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+
+        .song-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px;
+            text-align: center;
+            width: 150px;
+        }
+
+        img {
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        input[type="checkbox"] {
+            margin-top: 5px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]:hover {
+            box-shadow: 0 0 5px #fb0202;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: block;
+            font-size: 16px;
+        }
+
+        button {
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto;
+            display: block;
+            border: none;
+            border-radius: 5px;
+            background-color: #c10202f6;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #fb0202;
+        }
+
+        @media (max-width: 768px) {
+            .song-group {
+                width: 100px;
+            }
+
+            img {
+                width: 100px;
+                height: 100px;
+            }
+
+            button {
+                width: 100%;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div>
+                    {% for category, message in messages %}
+                        <div class="flash-messages flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <h1>Create a New Playlist</h1>
+        <form method="POST">
+            <label for="playlist_name">Playlist Name:</label>
+            <input 
+                type="text" 
+                id="playlist_name" 
+                name="playlist_name" 
+                required 
+                placeholder="Enter playlist name" 
+                aria-label="Playlist name"
+            >
+
+            <h2 style="text-align: center; font-size: 22px;">Select Songs:</h2>
+            <div class="songs-container">
+                {% for song in songs %}
+                    <div class="song-group" id="{{ song.title }}">
+                        <img 
+                            src="{{ url_for('static', filename='pictures/' + song.picture) }}" 
+                            alt="Album cover for {{ song.title }}" 
+                            id="{{ song.id }}" 
+                            class="song-image"
+                            data-checkbox-id="checkbox-{{ song.id }}"
+                        >
+                        <label for="checkbox-{{ song.id }}">
+                            <input 
+                                type="checkbox" 
+                                id="checkbox-{{ song.id }}" 
+                                name="songs" 
+                                value="{{ song.id }}" 
+                                aria-label="Select song {{ song.title }}"
+                            >
+                            {{ song.title }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit">Create Playlist</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to handle image click
+        document.addEventListener("DOMContentLoaded", function () {
+            const images = document.querySelectorAll(".song-image");
+
+            images.forEach(image => {
+                image.addEventListener("click", function () {
+                    const checkboxId = image.getAttribute("data-checkbox-id");
+                    const checkbox = document.getElementById(checkboxId);
+
+                    // Toggle the checkbox's checked state
+                    checkbox.checked = !checkbox.checked;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
