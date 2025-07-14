@@ -1,3 +1,1 @@
-# Projects
-
-Each project is placed in separate branches..
+# Projects: Each project is placed in separate branches..
