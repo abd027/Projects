@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+   
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: url("{{ url_for('static', filename='pictures/rm3.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+    width: 370px;
+    margin: 30px auto;
+    background-color: rgba(0, 0, 0, 0.833);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.807);
+    color: white;
+}
+
+h2 {
+    text-align:left;
+    margin-left: 20px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 18px;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    color: white;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 10px;
+    border: 1px solid #bebebe;
+    border-radius: 2px;
+    background-color: #120e0ed5; /* Dark gray */
+    color: white;
+    font-size: 16px;
+}
+
+select,button {
+    width: 86%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 10px;
+    border: 1px solid #c10202f6;
+    border-radius: 2px;
+    background-color: #c10202f6;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #fb0202;
+}
+
+p {
+    text-align: center;
+}
+
+a {
+    color: #c10202f6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+li.success {
+    color: green;
+}
+
+li.danger {
+    color: red;
+}
+
+
+</style>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form method="POST" action="/signup">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" >
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option disabled selected>Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input id="email" name="email" placeholder="Enter your email" >
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" >
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Create a password">
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="{{ url_for('login') }}">Log in here</a>.</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
